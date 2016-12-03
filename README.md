@@ -10,7 +10,6 @@ One needs ```createrepo``` tool, i.e. ```dnf -y install createrepo```
 ## Generating metadata
 Then, it's a matter of adding your rpm packages into a directory structure, e.g. ```./Server```, and running: ```createrepo --database Server```. Example result comprises manually created directory structure, manually added rpm packages and automatically generated repodata metadata:
 
-    ```
     ./Server
     ./Server/Packages
     ./Server/Packages/knot-sinkit-container-0.0.1-2.fc24.x86_64.rpm
@@ -23,12 +22,12 @@ Then, it's a matter of adding your rpm packages into a directory structure, e.g.
     ./Server/repodata/ec1e64bb8a98cb268140507b2a94444e4b28327d218e27925a904a04c356a069-primary.sqlite.bz2
     ./Server/repodata/bf601068d8db4d404bfc89f5591c8bc5ca14c7d30e9b63c81b9638c514853c6f-primary.xml.gz
     ./Server/repodata/repomd.xml
-    ```
+
 To ensure authenticity, rpm packages should be GPG signed. The whole structure could be uploaded to an FTP site.
 ## Client configuration
 Once you have it uploaded somewhere, one could create a repo config, e.g. ```/etc/yum.repos.d/sinkit.repo```:
 
-    ```
+
     [Server]
     name=Sinkit
     # Note the username contains URL encoded entity for character `\'
@@ -37,14 +36,14 @@ Once you have it uploaded somewhere, one could create a repo config, e.g. ```/et
     # As soon as one is done testing, GPG check should be enabled.
     # gpgcheck=1
     # gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Sinkit
-    ```
+
     
 Client then successfully loads packages from the metadata sqlite database we generated:
 
-    ```
+
     [root@box ~]# dnf search sinkit
     Sinkit                                                    603  B/s | 1.2 kB     00:02
     ====== N/S Matched: sinkit ==========================================================
     knot-sinkit-container.x86_64 : Knot DNS Resolver with Sinkit module Docker container.
     knot-sinkit-container.src : Knot DNS Resolver with Sinkit module Docker container.
-    ```
+ 
